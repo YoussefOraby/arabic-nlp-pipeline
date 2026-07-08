@@ -22,7 +22,8 @@ The entire pipeline runs automatically on a daily schedule, with zero manual int
 ├── config/                # Airflow config
 ├── logs/                  # Airflow logs
 ├── plugins/               # Airflow plugins
-├── .env                   # Airflow environment variables
+├── .env                   # Environment variables (API keys, Airflow)
+├── .env.example           # Example env file (safe to commit)
 ├── .gitignore
 ├── Dockerfile             # Airflow custom image
 ├── docker-compose.yaml    # Airflow services
@@ -60,7 +61,7 @@ Each stage is a standalone script in `scripts/`.
 
 ### Cleaning
 
-- **`clean_data.py`** — Normalizes Arabic characters (camel-tools), strips URLs/mentions/hashtag symbols/emojis, removes extra whitespace. Output: `data/cleaned_posts.csv`.
+- **`clean_data.py`** — Decodes HTML entities, strips HTML tags, normalizes Arabic characters (camel-tools), removes URLs/mentions/hashtag symbols/emojis, and trims whitespace. Output: `data/cleaned_posts.csv`.
 
 ### Sentiment Analysis
 
@@ -92,14 +93,19 @@ The `komari6/ajgt_twitter_ar` dataset contains 1,800 Arabic Jordanian tweets wit
 
 1. Get a key from the [Google Cloud Console](https://console.cloud.google.com/).
 2. Enable the **YouTube Data API v3**.
-3. Set the key as an environment variable before running:
+3. Create a `.env` file in the project root with your key (use `.env.example` as a template):
 
-```powershell
-$env:YOUTUBE_API_KEY = "your_api_key_here"
-python scripts/load_live_data.py
+```
+YOUTUBE_API_KEY=AIzaSy...
 ```
 
-The topic keyword is configurable at the top of the script (`TOPIC = "فودافون مصر"`). Comments from videos with comments disabled are skipped automatically.
+The key is loaded automatically via `python-dotenv` — no need to set it manually each session. The `.env` file is listed in `.gitignore` and will never be committed.
+
+The topic keyword is passed as a command-line argument. Comments from videos with comments disabled are skipped automatically.
+
+```powershell
+python scripts/load_live_data.py "فودافون مصر"
+```
 
 ## Running the Project
 
