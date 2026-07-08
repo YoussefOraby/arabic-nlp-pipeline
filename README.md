@@ -81,6 +81,8 @@ Each stage is a standalone script in `scripts/`.
 
 All processing stages are chained together and automated via an **Airflow DAG** (`nlp_pipeline`), running daily via Docker Compose.
 
+> **Two data paths:** The Airflow DAG uses the **static dataset** (`load_data.py`) for its scheduled daily runs. The interactive dashboard's "Analyze" button uses the **live YouTube source** (`load_live_data.py`) for on-demand topic searches. These are independent paths — you can use either without affecting the other.
+
 ## Data Sources
 
 ### Static Dataset (default)

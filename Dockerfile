@@ -6,4 +6,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 
 USER airflow
 RUN pip install torch --index-url https://download.pytorch.org/whl/cpu && \
-    pip install snscrape pandas transformers camel-tools datasets
+    pip install snscrape pandas transformers camel-tools datasets python-dotenv google-api-python-client

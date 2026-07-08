@@ -4,7 +4,6 @@ import sys
 import sqlite3
 import threading
 import time
-import traceback
 from collections import Counter
 from pathlib import Path
 
