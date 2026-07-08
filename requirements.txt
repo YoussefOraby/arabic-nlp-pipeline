@@ -6,3 +6,4 @@ camel-tools
 datasets
 dash
 plotly
+google-api-python-client
