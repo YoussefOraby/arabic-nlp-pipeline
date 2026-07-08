@@ -1,3 +1,4 @@
+import html
 import re
 import sys
 import pandas as pd
@@ -34,10 +35,13 @@ emoji_pattern = re.compile(
 url_pattern = re.compile(r"https?://\S+|www\.\S+")
 mention_pattern = re.compile(r"@\w+")
 hashtag_symbol_pattern = re.compile(r"#(\w+)")
+html_tag_pattern = re.compile(r"<[^>]+>")
 
 def clean_text(text):
     if not isinstance(text, str) or not text.strip():
         return ""
+    text = html.unescape(text)
+    text = html_tag_pattern.sub("", text)
     text = url_pattern.sub("", text)
     text = mention_pattern.sub("", text)
     text = hashtag_symbol_pattern.sub(r"\1", text)

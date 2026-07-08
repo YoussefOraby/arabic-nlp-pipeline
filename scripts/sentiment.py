@@ -18,7 +18,7 @@ pipe = pipeline(
     truncation=True,
 )
 
-results = pipe(df["clean_text"].tolist(), batch_size=32)
+results = pipe(df["clean_text"].tolist(), batch_size=32, truncation=True, max_length=512)
 df["sentiment"] = [r["label"] for r in results]
 df["confidence"] = [round(r["score"], 4) for r in results]
 

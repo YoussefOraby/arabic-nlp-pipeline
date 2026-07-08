@@ -7,3 +7,4 @@ datasets
 dash
 plotly
 google-api-python-client
+python-dotenv

@@ -1,10 +1,19 @@
 import os
+import sys
 import csv
 from pathlib import Path
+
+from dotenv import load_dotenv
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-TOPIC = "فودافون مصر"
+load_dotenv()
+
+if len(sys.argv) < 2:
+    print("Usage: python scripts/load_live_data.py \"<search topic>\"")
+    sys.exit(1)
+
+TOPIC = sys.argv[1]
 MAX_VIDEOS = 10
 MAX_COMMENTS_PER_VIDEO = 50
 
