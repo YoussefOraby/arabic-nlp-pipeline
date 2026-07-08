@@ -1,0 +1,8 @@
+snscrape
+pandas
+transformers
+torch
+camel-tools
+datasets
+dash
+plotly
